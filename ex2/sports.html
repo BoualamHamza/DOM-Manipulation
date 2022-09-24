@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="author" content="22014043" />
+<title>Sports les plus pratiqués</title>
+<link rel="stylesheet" type="text/css" href="sports.css">
+
+<script type="text/javascript" src="sportsData.js"></script>
+<script type="text/javascript" src="sports.js"></script>
+
+</head>
+<body>
+
+<header><h1>Sports les plus pratiqués</h1></header>
+<main>
+
+    <div class="liste">
+        <h2>Liste des sports</h2>
+        <ol>
+            <li>Football</li>
+            <li>Tennis</li>
+            <li>Équitation</li>
+            <li>Basketball</li>
+            <li>Judo</li>
+            <li>Handball</li>
+            <li>Golf</li>
+            <li>Rugby</li>
+            <li>Natation</li>
+            <li>Athlétisme</li>
+        </ol>
+
+
+    </div>
+
+    <aside id="info">
+        <h3>Faites du sport !</h3>
+        <button onclick="myButton()">Remettre à zero</button>
+    </aside>
+
+
+</main>
+
+<footer><p>&copy; Données 2016 non garanties.</p></footer>
+
+<script>
+"use strict";
+/*let sportsNames = document.getElementsByTagName("li");
+/*sportsNames[0].addEventListener('click', football);
+*/
+let mesSports = document.querySelectorAll("li");
+for(let i = 0; i<mesSports.length; i++){
+    mesSports[i].addEventListener("click", function() {
+        athlete(mesSports[i]);
+    });
+}
+
+
+
+// initialiser les capteurs d'évènements ici
+// et écrire les fonctions callback dans sports.js
+</script>
+
+</body>
+</html>

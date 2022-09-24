@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="22014043" />
+    <title>Une page pour tester les évènements</title>
+    <style>
+        body {
+            font-size: 1.2em;
+        }
+        .actions li {
+            padding: 5px;
+        }
+        #sable {
+            width: 312px;
+            float: right;
+            padding: 5px;
+            border: 1px solid black;
+            text-align: center;
+        }
+
+        #sable figcaption {
+            text-align: center;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+
+<h1 id="titre" class="ajouter">Une page pour tester les évènements</h1>
+
+<p class="ajouter">Écrire le code Javascript dans la balise <code>script</code> en fin de cette page.</p>
+<section class="actions">
+    <h2 class="ajouter">Actions à implémenter</h2>
+    <ol>
+        <li id="question1">Cliquer ici change la couleur du titre h1.</li>
+        <li id="question2">Quand la souris entre sur le paragraphe <code>para</code>, changer la couleur de fond et la couleur de police.</li>
+        <li id="question3">Quand la souris sort du paragraphe <code>para</code>, remettre les couleurs de départ.</li>
+        <li id="question4">Cliquer ici change l'image de droite une seule fois.</li>
+        <li id="question5">Cliquer ici change l'image de droite en alternant entre les 2 images fournies (ça change donc à chaque fois qu'on clique)</li>
+        <li id="question6">Cliquer sur le lien Google doit être désactivé : on reste sur la page</li>
+        <li id="question7">Cliquer ici cache/montre la liste <code>liste</code></li>
+        <li id="question8">Cliquer ici ajoute un item à la fin de la liste <code>liste</code></li>
+        <li id="question9">Cliquer ici supprime le fait que le paragraphe change de couleurs (question 3)</li>
+        <li id="question10">Appuyer sur la touche "a" supprime le dernier item de la liste <code>liste</code></li>
+        <li id="question11">Cliquer sur le lien Le Monde ouvre une demande de confirmation (utiliser la <a href="https://developer.mozilla.org/fr/docs/Web/API/Window/confirm">fonction confirm</a>). Le lien est activé si l'utilisateur clique sur OK et on reste sur la page sinon.</li>
+        <li id="question12">Cliquer ici ajoute le capteur d'évènement clic à tous les éléments de la classe <code>ajouter</code>
+        et au clic ces éléments sont mis en italique</li>
+        <li id="question13">Cliquer ici ajoute N paragraphes en fin de page (N sera un nombre aléatoire entre 1 et 5,
+            voir <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random"
+                    target="_blank">Math.random()</a> pour cela).
+            Chaque paragraphe créé devant capter le clic qui change
+            sa couleur de police aléatoirement (pour cela on pourra tirer 3 nombres aléatoires entre 0 et 255 et utiliser la
+            syntaxe CSS <a href="https://www.w3schools.com/cssref/func_rgb.asp" target="_blank"><code>rgb()</code></a> pour
+            définir la couleur)</li>
+    </ol>
+</section>
+
+<figure id="sable">
+    <figcaption class="ajouter">
+        <div class="legende">Château de sable</div>
+        <div class="licence">Licence CC-by, source: inconnue</div>
+    </figcaption>
+    <img src="images/chateau_sable_debutant.jpg" alt="château de sable de débutant">
+</figure>
+
+<p id="para" class="ajouter">Un paragraphe avec du texte qui ne dit rien de plus que ce qu'il dit. Un paragraphe avec du texte qui ne dit rien de plus que ce qu'il dit. Un paragraphe avec du texte qui ne dit rien de plus que ce qu'il dit. Un paragraphe avec du texte qui ne dit rien de plus que ce qu'il dit. Un paragraphe avec du texte qui ne dit rien de plus que ce qu'il dit. Un paragraphe avec du texte qui ne dit rien de plus que ce qu'il dit. Un paragraphe avec du texte qui ne dit rien de plus que ce qu'il dit.  Un paragraphe avec du texte qui ne dit rien de plus que ce qu'il dit.</p>
+
+<ul id="liste">
+    <li>Un premier item de liste</li>
+    <li>Un deuxième avec un <a href="https://google.com">lien vers Google</a> qui sera bloqué</li>
+    <li>Un troisième item avec un <a href="http://lemonde.fr">lien vers Le Monde</a></li>
+</ul>
+
+<script>
+"use strict";
+/* 1 */
+document.getElementById("question1").addEventListener('click', clicSurElement);
+function clicSurElement(event) {
+    console.log("Un clic est capté");
+    console.log(event);
+    document.getElementById("titre").style.color = 'green';
+}
+/* 2*/
+let para = document.getElementById("para");
+para.addEventListener('mouseenter', survolElement);
+function survolElement(event){
+    console.log("La souris est au-dessus d'un élément");
+    para.style.color = 'white';
+    para.style.backgroundColor="black";
+}
+/*3*/
+para.addEventListener('mouseleave', sorElement);
+function sorElement(event){
+    console.log("La souris est sorti d'un élément");
+    para.style.color = 'red';
+    para.style.backgroundColor= 'white';
+}
+/*4*/
+document.getElementById("question4").addEventListener('click', changeImage);
+let img = document.querySelector('img');
+function changeImage(event){
+    img.src = "images/chateau_sable_pro.jpg";
+}
+/*5*/
+document.getElementById("question5").addEventListener('click', changeImage2);
+function changeImage2(event){
+    img.src ="images/chateau_sable_debutant.jpg";
+}
+/*6*/
+let a = document.querySelectorAll("ul li a");
+console.log(a);
+a[0].addEventListener('click', disactivLien);
+function disactivLien(event){
+    a[0].href = "";
+}
+/* 7*/
+document.getElementById('question7').addEventListener('click', cache);
+let liste = document.getElementById('liste');
+let listeStatuts = true;
+liste.style.display = 'block';
+function cache(event){
+    if(listeStatuts == true){
+        liste.style.display = 'None';
+        listeStatuts = false;
+    }
+    else if(listeStatuts == false){
+        liste.style.display = 'block';
+        listeStatuts = true; 
+    }
+}
+/* 8 */ 
+document.getElementById('question8').addEventListener('click', addItem);
+let newLi = document.createElement("li");
+let textLi = document.createTextNode("Item 4 est un nouveau item créer par le js ");
+function addItem(event){
+    newLi.appendChild(textLi);
+    liste.appendChild(newLi);
+}
+/* 9 */ 
+document.getElementById('question9').addEventListener('click', noColors);
+/*sorElement(event) = false;*/
+function noColors(event){
+    para.style.color= '';
+    para.style.backgroundColor = '';
+}
+/*11*/
+a[1].addEventListener('click', confirmSt);
+function confirmSt(event){
+    let sure = window.confirm("Etes-vous sure?");
+    if(sure == false){
+        a[1].href = "";
+    }
+}
+///12
+let clasAjouter1 = document.getElementsByClassName('ajouter').addEventListener('click', changeStyle);
+console.log(cok)
+function changeStyle(event){
+    for(let i=0; i< clasAjouter1.length; i++){
+        clasAjouter1[i].style.fontStyle = 'italic';
+    }
+   
+}
+///13
+/* la fonction ci-dessous va genere un nombre de type int compris entre 0 et 5 */
+function random(min, max){
+    return Math.round(Math.random() * (max-min) + min);
+}
+let col = "rgb(" + random(0, 255) + "," + random(0, 255) + "," + random(0, 255) + ")";
+
+document.getElementById("question13").addEventListener('click', addParas);
+function addParas(event){
+    for(let i = 0; i<= random(1,5); i++){
+        let newP = document.createElement('p');
+        let newText = document.createTextNode('Ceci est un nouveau paragraphe creer par le JS');
+        newP.appendChild(newText);
+        para.appendChild(newP);
+        newP.style.color = col;
+    }
+}
+</script>
+
+</body>
+</html>
